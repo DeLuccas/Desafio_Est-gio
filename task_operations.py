@@ -2,97 +2,89 @@ import json
 import os
 from typing import List, Dict, Any, Optional
 
-PLAYERS_FILE = "players.json"
+ARQUIVO_JOGADORES = "players.json"
 
-def load_players() -> List[Dict[str, Any]]:
-    """Carrega os jogadores do arquivo JSON."""
-    if not os.path.exists(PLAYERS_FILE):
+def carregar_jogadores() -> List[Dict[str, Any]]:
+
+    if not os.path.isfile(ARQUIVO_JOGADORES):
         return []
+
     try:
-        with open(PLAYERS_FILE, 'r', encoding='utf-8') as f:
-            players = json.load(f)
-        
-        for player in players:
-            if 'goals' not in player:
-                player['goals'] = 0 
-        return players
+        with open(ARQUIVO_JOGADORES, "r", encoding="utf-8") as arquivo:
+            dados = json.load(arquivo)
+
+        for jogador in dados:
+            if "goals" not in jogador:
+                jogador["goals"] = 0
+
+        return dados
+
     except json.JSONDecodeError:
-        print(f"Aviso: O arquivo {PLAYERS_FILE} está vazio ou malformado. Iniciando com lista vazia.")
+        print(f"Atenção: o arquivo {ARQUIVO_JOGADORES} está corrompido ou vazio.")
         return []
-    except Exception as e:
-        print(f"Erro inesperado ao carregar jogadores: {e}")
+    except Exception as erro:
+        print(f"Erro ao tentar ler os dados: {erro}")
         return []
 
-def save_players(players: List[Dict[str, Any]]) -> None:
-    """Salva os jogadores no arquivo JSON."""
+def salvar_jogadores(lista: List[Dict[str, Any]]) -> None:
     try:
-        with open(PLAYERS_FILE, 'w', encoding='utf-8') as f:
-            json.dump(players, f, indent=2, ensure_ascii=False)
-    except Exception as e:
-        print(f"Erro inesperado ao salvar jogadores: {e}")
+        with open(ARQUIVO_JOGADORES, "w", encoding="utf-8") as arquivo:
+            json.dump(lista, arquivo, indent=2, ensure_ascii=False)
+    except Exception as erro:
+        print(f"Erro ao salvar dados dos jogadores: {erro}")
 
-def get_next_id(items: List[Dict[str, Any]]) -> int:
-    """Gera o próximo ID sequencial para um novo item."""
-    if not items:
+def proximo_id(lista: List[Dict[str, Any]]) -> int:
+    if not lista:
         return 1
-    return max(item.get('id', 0) for item in items) + 1
+    # Busca o maior ID atual e soma 1
+    return max(j.get("id", 0) for j in lista) + 1
 
-def add_player(name: str, team: str, position: str, goals: int) -> Optional[Dict[str, Any]]:
-    """Adiciona um novo jogador."""
-    players = load_players()
-    new_id = get_next_id(players)
-    new_player = {
-        "id": new_id,
-        "name": name,
-        "team": team,
-        "position": position,
-        "goals": goals
+def adicionar_jogador(nome: str, time: str, posicao: str, gols: int) -> Optional[Dict[str, Any]]:
+    jogadores = carregar_jogadores()
+    novo_jogador = {
+        "id": proximo_id(jogadores),
+        "name": nome,
+        "team": time,
+        "position": posicao,
+        "goals": gols
     }
-    players.append(new_player)
-    save_players(players)
-    return new_player
+    jogadores.append(novo_jogador)
+    salvar_jogadores(jogadores)
+    return novo_jogador
 
-def list_all_players() -> List[Dict[str, Any]]:
-    """Retorna todos os jogadores."""
-    return load_players()
+def listar_jogadores() -> List[Dict[str, Any]]:
+    return carregar_jogadores()
 
-def find_player_by_id(player_id: int) -> Optional[Dict[str, Any]]:
-    """Encontra um jogador pelo seu ID."""
-    players = load_players()
-    for player in players:
-        if player.get('id') == player_id:
-            return player
+def buscar_jogador_por_id(identificador: int) -> Optional[Dict[str, Any]]:
+    jogadores = carregar_jogadores()
+    for j in jogadores:
+        if j.get("id") == identificador:
+            return j
     return None
 
-def update_player_details(player_id: int, name: Optional[str] = None, team: Optional[str] = None, position: Optional[str] = None, goals: Optional[int] = None) -> Optional[Dict[str, Any]]:
-    """Atualiza nome, time, posição e/ou gols de um jogador."""
-    players = load_players()
-    player_updated = False
-    updated_player_data = None
-    for player in players:
-        if player.get('id') == player_id:
-            if name is not None:
-                player['name'] = name
-            if team is not None:
-                player['team'] = team
-            if position is not None:
-                player['position'] = position
-            if goals is not None: 
-                player['goals'] = goals
-            player_updated = True
-            updated_player_data = player
-            break
-    if player_updated:
-        save_players(players)
-        return updated_player_data
+def atualizar_jogador(identificador: int, nome: Optional[str] = None, time: Optional[str] = None, posicao: Optional[str] = None, gols: Optional[int] = None) -> Optional[Dict[str, Any]]:
+    jogadores = carregar_jogadores()
+    for j in jogadores:
+        if j.get("id") == identificador:
+            if nome:
+                j["name"] = nome
+            if time:
+                j["team"] = time
+            if posicao:
+                j["position"] = posicao
+            if gols is not None:
+                j["goals"] = gols
+            salvar_jogadores(jogadores)
+            return j
     return None
 
-def delete_player_by_id(player_id: int) -> bool:
-    """Exclui um jogador pelo seu ID."""
-    players = load_players()
-    initial_len = len(players)
-    players = [player for player in players if player.get('id') != player_id]
-    if len(players) < initial_len:
-        save_players(players)
+def remover_jogador(identificador: int) -> bool:
+    jogadores = carregar_jogadores()
+    tamanho_antes = len(jogadores)
+    jogadores = [j for j in jogadores if j.get("id") != identificador]
+
+    if len(jogadores) < tamanho_antes:
+        salvar_jogadores(jogadores)
         return True
-    return False 
+
+    return False
