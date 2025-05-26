@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "name": "Pelé",
+    "team": "Santos",
+    "position": "Atacante",
+    "goals": 1281
+  },
+  {
+    "id": 2,
+    "name": "Zico",
+    "team": "Flamengo",
+    "position": "Meio-campo",
+    "goals": 826
+  },
+  {
+    "id": 3,
+    "name": "Ronaldo Fenômeno",
+    "team": "Corinthians/Flamengo/Real Madrid/Inter Milan",
+    "position": "Atacante",
+    "goals": 414
+  },
+  {
+    "id": 4,
+    "name": "Marta Vieira da Silva",
+    "team": "Orlando Pride",
+    "position": "Atacante",
+    "goals": 115
+  },
+  {
+    "id": 5,
+    "name": "Garrincha",
+    "team": "Botafogo",
+    "position": "Ponta-direita",
+    "goals": 245
+  },
+  {
+    "id": 6,
+    "name": "Cristiano Ronaldo",
+    "team": "Al-Nassr/Real Madrid/Manchester United/Juventus",
+    "position": "Atacante",
+    "goals": 934
+  },
+  {
+    "id": 7,
+    "name": "Lionel Messi",
+    "team": "Inter Miami/Barcelona/PSG",
+    "position": "Atacante",
+    "goals": 868
+  },
+  {
+    "id": 8,
+    "name": "Neymar Jr.",
+    "team": "Santos/Barcelona/PSG/Al-Hilal",
+    "position": "Atacante",
+    "goals": 442
+  },
+  {
+    "id": 9,
+    "name": "Zinedine Zidane",
+    "team": "Real Madrid",
+    "position": "Meio-campo",
+    "goals": 156
+  },
+  {
+    "id": 10,
+    "name": "Raphael Veiga",
+    "team": "Palmeiras",
+    "position": "Meio-campo",
+    "goals": 89
+  },
+  {
+    "id": 11,
+    "name": "Endrick",
+    "team": "Palmeiras/Real Madrid",
+    "position": "Atacante",
+    "goals": 30
+  },
+  {
+    "id": 12,
+    "name": "Romário",
+    "team": "Vasco da Gama/Flamengo/Barcelona",
+    "position": "Atacante",
+    "goals": 1002
+  },
+  {
+    "id": 13,
+    "name": "Ronaldinho Gaúcho",
+    "team": "Barcelona/Milan/Flamengo/Atlético Mineiro",
+    "position": "Meio-campo/Atacante",
+    "goals": 313
+  },
+  {
+    "id": 14,
+    "name": "Palmeiras",
+    "team": "Maior time do Mundo",
+    "position": "Primeiro Campeão Mundial",
+    "goals": 12400
+  },
+  {
+    "id": 15,
+    "name": "Rivaldo",
+    "team": "Palmeiras/Barcelona",
+    "position": "Atacante",
+    "goals": 27839399209
+  }
+]
